@@ -1,0 +1,95 @@
+1:Target sum
+  #include <stdio.h>
+int main() {
+    int numbers[100], size, target;
+    printf("Enter number of elements: ");
+    scanf("%d", &size);
+    printf("Enter the elements:\n");
+    for (int index = 0; index < size; index++) {
+        scanf("%d", &numbers[index]);
+    }
+    printf("Enter the target sum: ");
+    scanf("%d", &target);
+    for (int first = 0; first < size; first++) {
+        for (int second = first + 1; second < size; second++) {
+            if (numbers[first] + numbers[second] == target) {
+                printf("Pair found: %d + %d = %d\n", numbers[first], numbers[second], target);
+                printf("Indices: [%d, %d]\n", first, second);
+                return 0; // Exit after finding the first pair
+            }
+        }
+    }
+    printf("No pair found that adds up to %d\n", target);
+    return 0;
+}
+
+2: Common element
+ #include <stdio.h>
+int main() {
+    int firstArray[100], secondArray[100];
+    int sizeFirst, sizeSecond;
+    printf("Enter size of first array: ");
+    scanf("%d", &sizeFirst);
+    printf("Enter elements of first array:\n");
+    for (int i = 0; i < sizeFirst; i++) {
+        scanf("%d", &firstArray[i]);
+    }
+    printf("Enter size of second array: ");
+    scanf("%d", &sizeSecond);
+    printf("Enter elements of second array:\n");
+    for (int i = 0; i < sizeSecond; i++) {
+        scanf("%d", &secondArray[i]);
+    } 
+    printf("Common elements: ");
+    for (int i = 0; i < sizeFirst; i++) {
+        for (int j = 0; j < sizeSecond; j++) {
+            if (firstArray[i] == secondArray[j]) {
+                printf("%d ", firstArray[i]);
+                break; 
+            }
+        }
+    }
+    return 0;
+} 
+
+3.Slot 1,2
+#include <stdio.h>
+#define MAX 100
+typedef struct {
+    int start;
+    int end;
+} Slot;
+int main() {
+    Slot slot1[MAX], slot2[MAX];
+    int n1, n2, d;
+    printf("Enter number of slots for person 1: ");
+    scanf("%d", &n1);
+    printf("Enter slots (start end):\n");
+    for (int i = 0; i < n1; i++) {
+        scanf("%d %d", &slot1[i].start, &slot1[i].end);
+    }
+    printf("Enter number of slots for person 2: ");
+    scanf("%d", &n2);
+    printf("Enter slots (start end):\n");
+    for (int i = 0; i < n2; i++) {
+        scanf("%d %d", &slot2[i].start, &slot2[i].end);
+    }
+    printf("Enter meeting duration (d): ");
+    scanf("%d", &d);
+    int i = 0, j = 0;
+    while (i < n1 && j < n2) {
+        int start = slot1[i].start > slot2[j].start ? slot1[i].start : slot2[j].start;
+        int end = slot1[i].end < slot2[j].end ? slot1[i].end : slot2[j].end;
+        if (end - start >= d) {
+            printf("Earliest common slot: [%d, %d]\n", start, start + d);
+            return 0;
+        }
+        if (slot1[i].end < slot2[j].end) {
+            i++;
+        } else {
+            j++;
+        }
+    }
+    printf("[]\n");
+    return 0;
+}
